@@ -6,7 +6,7 @@ export default function Footer(): JSX.Element {
   return (
     <Box component='footer' sx={{ py: 3 }}>
       <Typography level='body-xs' textAlign='center'>
-        © Your company {year}
+        © Hairdresser {year}
       </Typography>
     </Box>
   );

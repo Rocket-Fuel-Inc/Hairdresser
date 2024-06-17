@@ -1,17 +1,24 @@
 import { Box, Stack, Typography, Divider, FormControl, FormLabel, Input, Checkbox, Button } from '@mui/joy';
 import Link from '@mui/joy/Link';
 import GoogleIcon from './GoogleIcon.tsx';
+import { ChangeEvent, useState } from 'react';
 
 export default function MainDashboard(): JSX.Element {
+  const [formValue, setFormValue] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormValue({
+      ...formValue,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formElements = event.currentTarget.elements as HTMLFormControlsCollection;
-    const data = {
-      email: (formElements.namedItem('email') as HTMLInputElement).value,
-      password: (formElements.namedItem('password') as HTMLInputElement).value,
-      persistent: (formElements.namedItem('persistent') as HTMLInputElement).checked,
-    };
-    alert(JSON.stringify(data, null, 2));
+    alert(JSON.stringify(formValue, null, 2));
   };
 
   return (
@@ -67,11 +74,11 @@ export default function MainDashboard(): JSX.Element {
         <form onSubmit={onSubmit}>
           <FormControl required>
             <FormLabel>Email</FormLabel>
-            <Input type='email' name='email' />
+            <Input type='email' name='email' onChange={(e) => handleChange(e)} />
           </FormControl>
           <FormControl required>
             <FormLabel>Password</FormLabel>
-            <Input type='password' name='password' />
+            <Input type='password' name='password' onChange={(e) => handleChange(e)} />
           </FormControl>
           <Stack gap={4} sx={{ mt: 2 }}>
             <Box
