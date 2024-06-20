@@ -104,9 +104,15 @@ export default function MainDashboard(): JSX.Element {
           </Typography>
           <Typography level='body-sm'>
             New to company?{' '}
-            <Link href={RoutesEnum.REGISTER} level='title-sm'>
-              Sign up!
-            </Link>
+            {register ? (
+              <Link href={RoutesEnum.DASHBOARD} level='title-sm'>
+                Sign in!
+              </Link>
+            ) : (
+              <Link href={RoutesEnum.REGISTER} level='title-sm'>
+                Sign up!
+              </Link>
+            )}
           </Typography>
         </Stack>
 
@@ -131,10 +137,12 @@ export default function MainDashboard(): JSX.Element {
             <FormLabel>Email</FormLabel>
             <Input type='email' name='email' onChange={(e) => handleChange(e)} />
           </FormControl>
+
           <FormControl required>
             <FormLabel>Password</FormLabel>
             <Input type='password' name='password' onChange={(e) => handleChange(e)} />
           </FormControl>
+
           <Stack gap={4} sx={{ mt: 2 }}>
             <Box
               sx={{
