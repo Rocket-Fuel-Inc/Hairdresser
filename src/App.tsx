@@ -6,14 +6,14 @@ import RoutesEnum from './types/routesEnum';
 
 import ErrorPages from './pages/ErrorPages';
 import Dashboard from './pages/Dashboard';
-import MainApp from './pages/MainApp';
 import { auth } from './api/firebase';
 import { User } from 'firebase/auth';
 import { useAppState } from './context/AppState';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App(): JSX.Element {
   const {
-    state: { registerApp },
+    state: { registerApp, currentUser },
     dispatch,
   } = useAppState();
 
@@ -41,7 +41,7 @@ export default function App(): JSX.Element {
     },
     {
       path: RoutesEnum.APP,
-      component: <MainApp />,
+      component: <ProtectedRoute currentUser={currentUser} />,
     },
     {
       path: RoutesEnum.ANYTHING,
