@@ -1,5 +1,5 @@
 import './App.css';
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { CssVarsProvider } from '@mui/joy/styles';
 import RoutesEnum from './types/routesEnum';
@@ -23,8 +23,7 @@ export default function App(): JSX.Element {
     const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
       if (pathname === RoutesEnum.REGISTER || user !== null) {
         dispatch({ type: 'SET_REGISTER_APP', payload: true });
-      } 
-     
+      }
     });
 
     return () => unsubscribe();
