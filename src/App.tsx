@@ -13,7 +13,7 @@ import { useAppState } from './context/AppState';
 
 export default function App(): JSX.Element {
   const {
-    state: { register },
+    state: { registerApp },
     dispatch,
   } = useAppState();
 
@@ -22,15 +22,14 @@ export default function App(): JSX.Element {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
       if (pathname === RoutesEnum.REGISTER || user !== null) {
-        dispatch({ type: 'SET_REGISTER', payload: true });
-      } else {
-        dispatch({ type: 'SET_REGISTER', payload: false });
-      }
+        dispatch({ type: 'SET_REGISTER_APP', payload: true });
+      } 
+     
     });
 
     return () => unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [register]);
+  }, [registerApp]);
 
   const routes = [
     {

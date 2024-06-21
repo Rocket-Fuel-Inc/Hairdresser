@@ -1,36 +1,36 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Box, Stack, Typography, Divider, FormControl, FormLabel, Input, Checkbox, Button } from '@mui/joy';
+import { Box, Button, Checkbox, Divider, FormControl, FormLabel, Input, Stack, Typography } from '@mui/joy';
 import Link from '@mui/joy/Link';
-import GoogleIcon from './GoogleIcon.tsx';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../api/firebase.ts';
 import { useNavigate } from 'react-router-dom';
-import RoutesEnum from '../types/routesEnum.ts';
+import { auth, googleProvider } from '../api/firebase.ts';
 import { useAppState } from '../context/AppState.tsx';
+import RoutesEnum from '../types/routesEnum.ts';
+import GoogleIcon from './GoogleIcon.tsx';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { authSchema } from '../schema/authenticationFormSchema.ts';
+import { AuthForm, FormValues } from '../types/authenticationFormTypes.ts';
+import ErrorMessage from './ErrorMessage.tsx';
 
 export default function MainDashboard(): JSX.Element {
   const navigate = useNavigate();
 
   const {
-    state: { register },
+    state: { registerApp },
     dispatch,
   } = useAppState();
 
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(authSchema),
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
-
-  const onSubmitRegistration = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { email, password } = formValues;
+  const onSubmitRegistration = async (data: FormValues) => {
+    const { email, password } = data;
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -45,9 +45,8 @@ export default function MainDashboard(): JSX.Element {
       });
   };
 
-  const onSubmitLogIn = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { email, password } = formValues;
+  const onSubmitLogIn = async (data: FormValues) => {
+    const { email, password } = data;
 
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -100,11 +99,11 @@ export default function MainDashboard(): JSX.Element {
       <Stack gap={4} sx={{ mb: 2 }}>
         <Stack gap={1}>
           <Typography component='h1' level='h3'>
-            {register ? 'Registration' : 'Sign in'}
+            {registerApp ? 'Registration' : 'Sign in'}
           </Typography>
           <Typography level='body-sm'>
             New to company?{' '}
-            {register ? (
+            {registerApp ? (
               <Link href={RoutesEnum.DASHBOARD} level='title-sm'>
                 Sign in!
               </Link>
@@ -132,15 +131,17 @@ export default function MainDashboard(): JSX.Element {
       </Divider>
 
       <Stack gap={4} sx={{ mt: 2 }}>
-        <form onSubmit={register ? onSubmitRegistration : onSubmitLogIn}>
-          <FormControl required>
+        <form onSubmit={registerApp ? handleSubmit(onSubmitRegistration) : handleSubmit(onSubmitLogIn)}>
+          <FormControl error={!!errors?.email}>
             <FormLabel>Email</FormLabel>
-            <Input type='email' name='email' onChange={(e) => handleChange(e)} />
+            <Input type='email' {...register(AuthForm.EMAIL)} />
+            {!!errors?.email && <ErrorMessage error={errors.email} />}
           </FormControl>
 
-          <FormControl required>
+          <FormControl error={!!errors?.password}>
             <FormLabel>Password</FormLabel>
-            <Input type='password' name='password' onChange={(e) => handleChange(e)} />
+            <Input type='password' {...register(AuthForm.PASSWORD)} />
+            {!!errors?.password && <ErrorMessage error={errors.password} />}
           </FormControl>
 
           <Stack gap={4} sx={{ mt: 2 }}>
@@ -157,8 +158,8 @@ export default function MainDashboard(): JSX.Element {
               </Link>
             </Box>
 
-            <Button type='submit' fullWidth>
-              {register ? 'Registration' : 'Sign in'}
+            <Button type='submit' fullWidth color='warning'>
+              {registerApp ? 'Registration' : 'Sign in'}
             </Button>
           </Stack>
         </form>

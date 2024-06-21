@@ -5,13 +5,13 @@ import { State } from './Interface';
 export const initialState: State = {
   loading: false,
   currentUser: null,
-  register: false,
+  registerApp: false,
 };
 
 // Actions
 export type Action =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_CURRENT_USER'; payload: User | null}
-  | { type: 'SET_REGISTER'; payload: boolean };
+  | { type: 'SET_REGISTER_APP'; payload: boolean };
 
 export type Dispatch = (action: Action) => void;

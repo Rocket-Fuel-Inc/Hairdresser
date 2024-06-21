@@ -13,7 +13,7 @@ export default function MainApp(): JSX.Element {
     try {
       await signOut(auth);
       navigate(RoutesEnum.DASHBOARD);
-      dispatch({ type: 'SET_REGISTER', payload: false });
+      dispatch({ type: 'SET_REGISTER_APP', payload: false });
     } catch (error) {
       // To Do: add notification toast
       alert(error);

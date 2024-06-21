@@ -4,5 +4,5 @@ import { User } from 'firebase/auth';
 export interface State {
   loading: boolean;
   currentUser: User | null;
-  register: boolean;
+  registerApp: boolean;
 }

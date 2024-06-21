@@ -15,10 +15,10 @@ export const appReducer = (state: State, action: Action): State => {
         ...state,
         currentUser: action.payload,
       };
-    case 'SET_REGISTER':
+    case 'SET_REGISTER_APP':
       return {
         ...state,
-        register: action.payload,
+        registerApp: action.payload,
       };
 
     default: {
