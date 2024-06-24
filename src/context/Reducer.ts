@@ -10,6 +10,16 @@ export const appReducer = (state: State, action: Action): State => {
         ...state,
         loading: action.payload,
       };
+    case 'SET_CURRENT_USER':
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    case 'SET_REGISTER_APP':
+      return {
+        ...state,
+        registerApp: action.payload,
+      };
 
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
