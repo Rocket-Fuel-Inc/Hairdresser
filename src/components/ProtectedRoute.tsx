@@ -1,16 +1,14 @@
-import { Navigate } from 'react-router-dom';
-import RoutesEnum from '../types/routesEnum';
 import MainApp from '../pages/MainApp';
-import { User } from 'firebase/auth';
+import ErrorPages from '../pages/ErrorPages';
+import { useAppState } from '../context/AppState';
 
-interface ProtectedRouteProps {
-  currentUser: User | null;
-}
+export default function ProtectedRoute() {
+  const {
+    state: { currentUser },
+  } = useAppState();
 
-export default function ProtectedRoute({ currentUser }: ProtectedRouteProps) {
   if (!currentUser) {
-    return <Navigate to={RoutesEnum.DASHBOARD} replace />;
+    return <ErrorPages errorCode={403} />;
   }
-
   return <MainApp />;
 }

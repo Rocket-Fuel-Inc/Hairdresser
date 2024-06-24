@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../api/firebase.ts';
 import { useAppState } from '../context/AppState.tsx';
 import RoutesEnum from '../types/routesEnum';
-import GoogleIcon from './GoogleIcon.tsx';
+import GoogleIcon from '../ui/GoogleIcon.tsx.tsx';
 
 export default function AuthenticationProviders(): JSX.Element {
   const navigate = useNavigate();

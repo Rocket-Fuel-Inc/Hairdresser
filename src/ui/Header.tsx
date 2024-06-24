@@ -1,11 +1,11 @@
 import { Box, Button, IconButton, Typography } from '@mui/joy';
-import ColorSchemeToggle from './ColorSchemeToggle';
 import logoIcon from '../assets/logo.png';
 import { signOut } from 'firebase/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../api/firebase';
 import { useAppState } from '../context/AppState';
 import RoutesEnum from '../types/routesEnum';
+import ColorSchemeToggle from '../components/ColorSchemeToggle';
 
 export default function Header(): JSX.Element {
   const { dispatch } = useAppState();
