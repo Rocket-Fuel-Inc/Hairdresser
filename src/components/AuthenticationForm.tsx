@@ -87,16 +87,7 @@ export default function AuthenticationForm(): JSX.Element {
           </Link>
         </Box>
 
-        <Button
-          type='submit'
-          fullWidth
-          sx={{
-            background: 'var(--color-myBrown)',
-            '&:hover': {
-              background: 'var(--color-myBrownHover)',
-            },
-          }}
-        >
+        <Button type='submit' fullWidth>
           {registerApp ? 'Registration' : 'Sign in'}
         </Button>
       </Stack>
