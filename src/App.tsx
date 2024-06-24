@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { CssVarsProvider } from '@mui/joy/styles';
@@ -10,10 +9,11 @@ import { auth } from './api/firebase';
 import { User } from 'firebase/auth';
 import { useAppState } from './context/AppState';
 import ProtectedRoute from './components/ProtectedRoute';
+import { theme } from './theme';
 
 export default function App(): JSX.Element {
   const {
-    state: { registerApp, currentUser },
+    state: { registerApp },
     dispatch,
   } = useAppState();
 
@@ -41,17 +41,17 @@ export default function App(): JSX.Element {
     },
     {
       path: RoutesEnum.APP,
-      component: <ProtectedRoute currentUser={currentUser} />,
+      component: <ProtectedRoute />,
     },
     {
       path: RoutesEnum.ANYTHING,
-      component: <ErrorPages />,
+      component: <ErrorPages errorCode={404} />,
     },
   ];
 
   return (
     <>
-      <CssVarsProvider defaultMode='dark' disableTransitionOnChange>
+      <CssVarsProvider theme={theme} defaultMode='dark' disableTransitionOnChange>
         <Routes>
           {routes.map(({ path, component }) => (
             <Route path={path} element={component} key={path} />

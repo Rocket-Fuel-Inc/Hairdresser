@@ -1,11 +1,11 @@
-import Header from '../components/Header';
+import Header from '../../ui/Header';
 import CssBaseline from '@mui/joy/CssBaseline';
 
 export default function MainApp(): JSX.Element {
   return (
     <div>
-      <Header />
       <CssBaseline />
+      <Header />
     </div>
   );
 }
