@@ -1,9 +1,10 @@
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
+import Footer from '../ui/Footer';
 import MainDashboard from '../components/MainDashboard';
+import Header from '../ui/Header';
 
 export default function Dashboard(): JSX.Element {
   return (

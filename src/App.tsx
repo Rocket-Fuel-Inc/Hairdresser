@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { CssVarsProvider } from '@mui/joy/styles';
@@ -45,7 +44,7 @@ export default function App(): JSX.Element {
     },
     {
       path: RoutesEnum.ANYTHING,
-      component: <ErrorPages />,
+      component: <ErrorPages errorCode={404} />,
     },
   ];
 

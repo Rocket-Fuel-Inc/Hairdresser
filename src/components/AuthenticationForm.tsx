@@ -9,7 +9,7 @@ import { useAppState } from '../context/AppState.tsx';
 import { authSchema } from '../schema/authenticationFormSchema.ts';
 import { AuthForm, FormValues } from '../types/authenticationFormTypes.ts';
 import RoutesEnum from '../types/routesEnum.ts';
-import ErrorMessage from './ErrorMessage.tsx';
+import ErrorMessage from '../ui/ErrorMessage.tsx';
 
 export default function AuthenticationForm(): JSX.Element {
   const navigate = useNavigate();
@@ -87,7 +87,16 @@ export default function AuthenticationForm(): JSX.Element {
           </Link>
         </Box>
 
-        <Button type='submit' fullWidth color='warning'>
+        <Button
+          type='submit'
+          fullWidth
+          sx={{
+            background: 'var(--color-myBrown)',
+            '&:hover': {
+              background: 'var(--color-myBrownHover)',
+            },
+          }}
+        >
           {registerApp ? 'Registration' : 'Sign in'}
         </Button>
       </Stack>
