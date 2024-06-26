@@ -10,6 +10,7 @@ import { authSchema } from '../schema/authenticationFormSchema.ts';
 import { AuthForm, FormValues } from '../types/authenticationFormTypes.ts';
 import RoutesEnum from '../types/routesEnum.ts';
 import ErrorMessage from '../ui/ErrorMessage.tsx';
+import { useSnackbar } from 'notistack';
 
 export default function AuthenticationForm(): JSX.Element {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export default function AuthenticationForm(): JSX.Element {
     resolver: yupResolver(authSchema),
   });
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const onSubmitRegistration = async (data: FormValues) => {
     const { email, password } = data;
 
@@ -36,10 +39,10 @@ export default function AuthenticationForm(): JSX.Element {
         const user = userCredential.user;
         dispatch({ type: 'SET_CURRENT_USER', payload: user });
         navigate(RoutesEnum.APP);
+        enqueueSnackbar('Registration completed successfully, let`s get started!', { variant: 'success' });
       })
       .catch((error) => {
-        // To Do: add notification toast
-        alert(error.message);
+        enqueueSnackbar(error.message, { variant: 'error' });
       });
   };
 
@@ -52,10 +55,10 @@ export default function AuthenticationForm(): JSX.Element {
         const user = userCredential.user;
         dispatch({ type: 'SET_CURRENT_USER', payload: user });
         navigate(RoutesEnum.APP);
+        enqueueSnackbar('Let`s get started!', { variant: 'success' });
       })
       .catch((error) => {
-        // To Do: add notification toast
-        alert(error.message);
+        enqueueSnackbar(error.message, { variant: 'error' });
       });
   };
 
