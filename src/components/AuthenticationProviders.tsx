@@ -6,6 +6,7 @@ import { auth, googleProvider } from '../api/firebase.ts';
 import { useAppState } from '../context/AppState.tsx';
 import RoutesEnum from '../types/routesEnum';
 import GoogleIcon from '../ui/GoogleIcon.tsx.tsx';
+import { useSnackbar } from 'notistack';
 
 export default function AuthenticationProviders(): JSX.Element {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export default function AuthenticationProviders(): JSX.Element {
     dispatch,
   } = useAppState();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleGoogleLogin = async () => {
     await signInWithPopup(auth, googleProvider)
       .then((userCredential) => {
@@ -21,10 +24,10 @@ export default function AuthenticationProviders(): JSX.Element {
         const user = userCredential.user;
         dispatch({ type: 'SET_CURRENT_USER', payload: user });
         navigate(RoutesEnum.APP);
+        enqueueSnackbar('Login successful, good to see you again!', { variant: 'success' });
       })
       .catch((error) => {
-        // To Do: add notification toast
-        alert(error.message);
+        enqueueSnackbar(error.message, { variant: 'error' });
       });
   };
 
