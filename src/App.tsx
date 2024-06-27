@@ -10,6 +10,8 @@ import { User } from 'firebase/auth';
 import { useAppState } from './context/AppState';
 import ProtectedRoute from './components/ProtectedRoute';
 import { theme } from './theme';
+import { SnackbarOrigin, SnackbarProvider } from 'notistack';
+import { snackbarConfig } from './config/snackbarConfig';
 
 export default function App(): JSX.Element {
   const {
@@ -52,11 +54,17 @@ export default function App(): JSX.Element {
   return (
     <>
       <CssVarsProvider theme={theme} defaultMode='dark' disableTransitionOnChange>
-        <Routes>
-          {routes.map(({ path, component }) => (
-            <Route path={path} element={component} key={path} />
-          ))}
-        </Routes>
+        <SnackbarProvider
+          iconVariant={snackbarConfig.iconVariant}
+          anchorOrigin={snackbarConfig.anchorOrigin as SnackbarOrigin}
+          autoHideDuration={snackbarConfig.autoHideDuration}
+        >
+          <Routes>
+            {routes.map(({ path, component }) => (
+              <Route path={path} element={component} key={path} />
+            ))}
+          </Routes>
+        </SnackbarProvider>
       </CssVarsProvider>
     </>
   );
