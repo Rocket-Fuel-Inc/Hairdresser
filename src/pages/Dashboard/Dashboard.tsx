@@ -35,9 +35,7 @@ export default function Dashboard(): JSX.Element {
           }}
         >
           <Header />
-
           <MainDashboard />
-
           <Footer />
         </Box>
       </Box>
