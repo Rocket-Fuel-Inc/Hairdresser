@@ -11,7 +11,7 @@ export const initialState: State = {
 // Actions
 export type Action =
   | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_CURRENT_USER'; payload: User | null}
+  | { type: 'SET_CURRENT_USER'; payload: User | null }
   | { type: 'SET_REGISTER_APP'; payload: boolean };
 
 export type Dispatch = (action: Action) => void;
