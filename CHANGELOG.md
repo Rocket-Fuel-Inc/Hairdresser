@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/Rocket-Fuel-Inc/Hairdresser/compare/v0.0.8...v0.0.9) (2024-06-28)
+
+### Features
+
+- **added comitizen config:** added comitizen config ([f417c72](https://github.com/Rocket-Fuel-Inc/Hairdresser/commit/f417c72df5345ef0bf34fc027da8c4c8241869bb))
+
 ### [0.0.8](https://github.com/Rocket-Fuel-Inc/Hairdresser/compare/v0.0.7...v0.0.8) (2024-06-28)
 
 ### Features
